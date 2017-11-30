@@ -56,7 +56,6 @@ class Products extends Component {
 
     addToCart(i, e) {
 
-
         const item = this.state.products[i];
 
         let total = this.state.cart.total
@@ -73,8 +72,8 @@ class Products extends Component {
     }
 
     changePage() {
-        this.setState ({
-            displayCart: true
+        this.setState({
+            displayCart: !this.state.displayCart
         });
     }
 
@@ -94,26 +93,26 @@ class Products extends Component {
             <div className="productList">
                 {this.state.products.map((prod, i) => {
                     return (
-                        <ProductItem product={prod} addToCart={this.addToCart.bind(this, i)} key={i}/>
+                        <ProductItem product={prod} addToCart={this.addToCart.bind(this, i)} key={i} />
                     );
                 })}
 
                 {this.state.cart.added.length > 0 ?
                     <div className="displayCart" style={styleDisplayCart}>
-                        <CartIcon style={{ paddingRight: 40 }} size={70} /> 
+                        <CartIcon style={{ paddingRight: 40 }} size={70} />
                         {this.state.cart.added.length} product ,   total  {this.state.cart.total} €
 
-                        <input 
-                            type="submit" 
+                        <input
+                            type="submit"
                             value="Go To Cart"
                             onClick={this.changePage.bind(this)}
                             style={{
-                                backgroundColor: 'orange', 
+                                backgroundColor: 'orange',
                                 border: 'orange 1px solid',
                                 margin: 25,
                                 fontSize: 20,
                                 padding: 10,
-                            }}    
+                            }}
                         />
 
                         {/* <Checkout
@@ -131,9 +130,16 @@ class Products extends Component {
     }
 
     renderBasket() {
+        // Button to come back to renderProduct 
         return (
             <div className="basket">
-                <ul style={{ listStyleType: 'none'}}>
+                <input 
+                    type="submit" 
+                    value="Continue Shopping" 
+                    onClick={this.changePage.bind(this)} 
+                />
+                    
+                <ul style={{ listStyleType: 'none' }}>
                     {this.state.cart.added.map((item, i) => {
                         return <li>{item.name} : {item.price} €</li>
                     })}
@@ -141,6 +147,7 @@ class Products extends Component {
                 <p> TOTAL : {this.state.cart.total} €</p>
             </div>
         );
+
     }
 
     render() {
@@ -148,7 +155,7 @@ class Products extends Component {
         return (
             <div style={{ marginBottom: 50 }}>
 
-                <h1 style={{fontSize: 50}}> Mini Market</h1>
+                <h1 style={{ fontSize: 50 }}> Mini Market</h1>
 
                 {!this.state.displayCart ?
                     this.renderProducts()
