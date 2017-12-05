@@ -9,7 +9,8 @@ const styleDescription = {
 };
 
 const stylePrice = {
-    fontSize: 25
+    fontSize: 25,
+    color: '#ffa500'
 };
 
 export default (props) => {
@@ -22,6 +23,7 @@ export default (props) => {
             padding: 20,
             border: "2px solid #000",
             borderRadius: 20,
+            backgroundColor: '#ebe6e6'
 
         }}>
             <h3 className="product_name" style={styleName}>{props.product.name}</h3>
@@ -29,10 +31,10 @@ export default (props) => {
             <p className="product_price" style={stylePrice}>{props.product.price} €</p>
 
             <input 
-            type="submit" 
-            value="Add to Cart" 
-            onClick={props.addToCart}
+                type="submit" 
+                value="Ajouter" 
+                onClick={props.addToCart}
             />
         </div>
     );
-};
+}; 

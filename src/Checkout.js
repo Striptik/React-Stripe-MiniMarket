@@ -5,8 +5,7 @@ import StripeCheckout from 'react-stripe-checkout';
 //# To remove from this file
 
 const STRIPE_PUB_KEY = 'pk_test_3p3QjTXo9jI4oVF16QLY4Rt1';
-const STRIPE_SECRET_KEY = 'sk_test_pRwN5L3oUPWkAsH1kzhqEYrH';
-const PAYMENT_SERVER_URL = process.env.NODE_ENV === 'production'? 'http://myapidomain.com': 'http://localhost:3000';
+const PAYMENT_SERVER_URL = 'http://localhost:3000';  // To change if one day be in production mode
 
 
 // Usage with REACT-STRIPE-CHECKOUT
@@ -20,7 +19,7 @@ const successPayment = data => {
 };
 
 const errorPayment = data => {
-  alert('Payment Error');
+  alert('Payment Successful');
 };
 
 const onToken = (amount, description) => token =>
@@ -34,14 +33,24 @@ const onToken = (amount, description) => token =>
     .then(successPayment)
     .catch(errorPayment);
 
-const Checkout = ({ name, description, amount }) =>
-  <StripeCheckout
-    name={name}
+const Checkout = ({ amount, description }) => {
+  
+return (<StripeCheckout
+    name="Mini Market Paiement"
     description={description}
     amount={fromEuroToCent(amount)}
+    panelLabel="Payer"
     token={onToken(amount, description)}
     currency={CURRENCY}
     stripeKey={STRIPE_PUB_KEY}
-  />
+    allowRememberMe
+    bitcoin
+    shippingAddress
+  >
+    <button style={{backgroundColor: '#ffa500'}}>
+      Payer par carte bleue
+    </button>
+  </StripeCheckout>);
+}
 
 export default Checkout;
